@@ -1,6 +1,5 @@
 # Operating systems
 - This folder contains basic OS concepts and implemention of basic concepts like processes, threads, synchronization and memory management.
-</br>
 - implementation based on C programming and linux os
 
 ## Topics
