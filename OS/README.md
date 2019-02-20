@@ -4,4 +4,4 @@
 - implementation based on C programming and linux os
 
 ## Topics
-- Review C : implementing the [doubly linkedlist]() I refresh my knowledge of C (pointers, structs, dynamic allocation)
+- Review C : implementing the [doubly linkedlist]() you can refresh your knowledge of C (pointers, structs, dynamic allocation). adding some good functions to linkedlist such as search, delete, push_back, push_forward, reverse
