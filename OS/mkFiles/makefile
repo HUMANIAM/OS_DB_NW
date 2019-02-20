@@ -12,16 +12,16 @@ all: hello
 
 #linking command
 hello: main.o factorial.o hello.o
-	g++ main.o factorial.o hello.o -o hello
+	$(CC) main.o factorial.o hello.o -o hello
 
 main.o: main.cpp
-	g++ -c main.cpp
+	$(CC) $(CFLAGS) main.cpp
 
 factorial.o: factorial.cpp
-	g++ -c factorial.cpp
+	$(CC) $(CFLAGS) factorial.cpp
 
 hello.o: hello.cpp
-	g++ -c hello.cpp
+	$(CC) $(CFLAGS) hello.cpp
 
 clean:
 	rm -rf *.o
