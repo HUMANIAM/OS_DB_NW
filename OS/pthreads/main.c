@@ -14,6 +14,8 @@ Program :   posix threads
 * parallel programming techs such as MPI and PVM are used in a distributed computing systems but threads are limited to a single computer system
 * All threads within the process share address space.
 * a thread is spawned by defining a function that the thread will execute it and its arguments which will be processed in the thread.
+* the cost of creating and maintaining threads is much smaller than the cost for processes, both in system resources and time. 
+* communication between threads can be made without involving the operating system
 * The purpose of using the Posix thread library in any software is to make it faster
 */
 

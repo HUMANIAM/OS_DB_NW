@@ -55,9 +55,9 @@ Matrix* unithread_multiplication(const Matrix* matrix1, const Matrix* matrix2){
 
 
 //multithreads to make the multiplication of two matrices
-volatile int running_threads = 0;
-pthread_mutex_t running_mutex = PTHREAD_MUTEX_INITIALIZER;
-Params* params;
+static volatile int running_threads = 0;
+static pthread_mutex_t running_mutex = PTHREAD_MUTEX_INITIALIZER;
+static Params* params;
 
 void* set_cell(void* position){
 	// compute the cell in result matrix
