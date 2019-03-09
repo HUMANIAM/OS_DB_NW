@@ -59,17 +59,20 @@ static volatile int running_threads = 0;
 static pthread_mutex_t running_mutex = PTHREAD_MUTEX_INITIALIZER;
 static Params* params;
 
-void* set_cell(void* position){
-	// compute the cell in result matrix
-	Position* pos = (Position*) position;
+void* set_cell(void* args){
+	// compute the corresponding row in the result matrix
+	int r = *((int*) args);
 
-	params->result_matrix->matrix [pos->r][pos->c] = 0;
-	int k;
-	int width = params->matrix1->width;
+	int c, k;
+	int height2 = params->matrix2->height;
+	int width2 = params->matrix2->width;
 
-	for(k=0; k < width; k++)
-		params->result_matrix->matrix[pos->r][pos->c] += params->matrix1->matrix[pos->r][k] 
-												  * params->matrix2->matrix[k][pos->c];
+	for(c=0; c < width2; c++){
+		params->result_matrix->matrix [r][c] = 0;
+		for(k=0; k < height2; k++)
+			params->result_matrix->matrix[r][c] += params->matrix1->matrix[r][k] 
+												   * params->matrix2->matrix[k][c];
+    }
 
 	//decrease the running thread
 	pthread_mutex_lock(&running_mutex);
@@ -88,26 +91,23 @@ Matrix* multithread_multiplication(const Matrix* matrix1, const Matrix* matrix2)
 	params->matrix1 = matrix1;
 	params->matrix2 = matrix2;
 	params->result_matrix = create_matrix(h, w);
-	Position positions [h*w]; 
 
 	//running threads
-	running_threads = h*w;
+	int threads_n = running_threads = h;
+	int rows [threads_n]; 
+
 
 	//start multiplication using threads
-	pthread_t threads[h*w];
-	int r, c;
+	pthread_t threads[threads_n];
+	int r;
 	for(r = 0; r < h; r++){
-		for (c = 0; c < w; c++){
-			int p = r*h + c;
-			positions[p] = (Position){.r = r, .c = c};
-			pthread_create(&threads[p], NULL, set_cell, (void*) &positions[p]);
-		}
+		rows[r] = r;
+		pthread_create(&threads[r], NULL, set_cell, (void*) &rows[r]);
 	} 
 
 	//wait all threads untill complete
-	while (running_threads > 0){
-     sleep(1);
-  }
+	while (running_threads > 0)	sleep(1);
+  
 
   //return the result matrix
   return params->result_matrix;

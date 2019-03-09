@@ -16,6 +16,7 @@ Program :   posix threads
 * a thread is spawned by defining a function that the thread will execute it and its arguments which will be processed in the thread.
 * the cost of creating and maintaining threads is much smaller than the cost for processes, both in system resources and time. 
 * communication between threads can be made without involving the operating system
+* threads used to implement algorithms
 * The purpose of using the Posix thread library in any software is to make it faster
 */
 
@@ -33,8 +34,8 @@ int main(){
 	//seed pseduorandom generator with current time
 	srand(time(NULL));
 	//create two matrices say one with dim 6x5 and the second with 5x10
-	Matrix* matrix1 = create_matrix(3, 2);
-	Matrix* matrix2 = create_matrix(2, 3);
+	Matrix* matrix1 = create_matrix(1000, 1000);
+	Matrix* matrix2 = create_matrix(1000, 1000);
 
 	
 
