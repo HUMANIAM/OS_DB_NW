@@ -8,7 +8,6 @@ typedef struct{
     int** matrix;
 }Matrix;
 
-typedef struct{int r, c;} Position;
 
 typedef struct{
 	const Matrix* matrix1;
@@ -30,3 +29,5 @@ Matrix* unithread_multiplication(const Matrix*, const Matrix*);
 void* set_cell(void*);
 
 Matrix* multithread_multiplication(const Matrix*, const Matrix*);
+
+bool compare_results(const Matrix*, const Matrix*);

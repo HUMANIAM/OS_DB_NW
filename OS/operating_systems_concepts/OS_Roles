@@ -1,0 +1,6 @@
+1- Operating system : is a software layer that lies between the underlying complex hardware and the software apps that lies on this *****************  computing system. and It Plays two main roles the first is abstraction and the second is the arbitration 
+2- roles of OS : 1- hide the hardwere complexity from the running apps (abstraction)
+				 2- provide isolation and protection among apps
+				 3- resources allocation and management among various running apps according to some predefined policies
+
+3- file system, device deriver, sheduler are components of the operating system.
