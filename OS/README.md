@@ -8,4 +8,4 @@
 - Shell Programming
 - OS Concepts : 
 	- what is OS?, Kernel, MicorKernel, Execution modes, services provided by the OS
-	- Processes
+	- Creation and Communication among Processes
