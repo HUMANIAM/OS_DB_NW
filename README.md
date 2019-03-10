@@ -9,3 +9,7 @@ This repo contains 3 distinctive folders. The first one is DataBase (DB design, 
 - [Introduction_to_c](https://github.com/HUMANIAM/C_programmingLang_problems_solution)
 - [Shell_scripting](https://www.shellscript.sh/)
 - [Your_Second_Mind_Google](https://www.google.com/)
+
+## DB resources
+- [introduction to relational database](https://lagunita.stanford.edu/courses/DB/RDB/SelfPaced/course/)
+- [w3school_sql_language](https://www.w3schools.com/sql/)
