@@ -3,7 +3,7 @@
 - implementation based on C programming and linux os
 
 ## Topics
-- Review C : implementing the [doubly linkedlist]() you can refresh your knowledge of C (pointers, structs, dynamic allocation). adding some good functions to linkedlist such as search, delete, push_back, push_forward, reverse
+- Review C : implementing the [doubly linkedlist](https://github.com/HUMANIAM/OS_DB_NW/blob/master/OS/review_c/linked_list.c) you can refresh your knowledge of C (pointers, structs, dynamic allocation). adding some good functions to linkedlist such as search, delete, push_back, push_forward, reverse
 - Matrix Multiplication Using Pthreads
 - Shell Programming
 - OS Concepts : 
