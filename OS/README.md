@@ -8,4 +8,6 @@
 - Shell Programming
 - OS Concepts : 
 	- what is OS?, Kernel, MicorKernel, Execution modes, services provided by the OS
-	- Creation and Communication among Processes
+	- Processes, Process lifecycle, PCB, page table, process address space, process creation, interprocess communication.
+	- simple shell execute uniary commands, pipe line commands, redirection commands (as simple app on processes)
+	- threads synchronization using condition variable and mutex execulsion, read/write threads on critical section (as simple app)
