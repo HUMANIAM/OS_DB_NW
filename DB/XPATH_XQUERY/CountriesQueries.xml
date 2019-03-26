@@ -1,0 +1,207 @@
+let $db := doc("countries.xml")
+
+/*Return the area of Mongolia. */
+let $area := $db//country[@name = 'Mongolia']/@area
+Return $area
+
+/*Return the names of all cities that have the same name as the country in which they are located. */
+let $area := $db//city[name = ../@name]/name
+return $area
+
+/*Return the average population of Russian-speaking countries. */
+let $lan_rus_countries_avg_pop := avg($db//country[language = 'Russian']/data(@population))
+return $lan_rus_countries_avg_pop 
+
+/*Return the names of all countries that have at least three cities with population greater than 3 million. */
+let $compardPopulation := 3000000
+for $cntry in $db//country 
+	let $bigCitites := count($cntry/city[population > $compardPopulation])
+	return if($bigCitites > 2) then $cntry/data(@name)
+			else()
+
+/*Create a list of French-speaking and German-speaking countries. The result should take the form:*/
+let $fr_contries := $db//country[language = 'French']/data(@name)
+let $ger_contries := $db//country[language = 'German']/data(@name)
+
+return <result>
+	<French>{
+		for $fr_cntry in $fr_contries 
+			return <country>{$fr_cntry}</country>
+	}</French>
+
+	<German>{
+		for $gr_cntry in $ger_contries
+			return <country>{$gr_cntry}</country>
+	}</German>
+
+</result>
+
+
+/*Return the countries with the highest and lowest population densities. */
+let $densities := $db//country/(data(@population) div data(@area))
+let $max_density := max($densities)
+let $min_density := min($densities)
+return <result>
+		<highest density = "{$max_density}">{
+			for $cntry in $db//country
+				where ($cntry/(data(@population) div data(@area))) = $max_density
+				return $cntry/data(@name)
+		}</highest>
+		<lowest density = "{$min_density}">{
+			for $cntry in $db//country
+				where ($cntry/(data(@population) div data(@area))) = $min_density
+				return $cntry/data(@name)
+		}</lowest>
+	</result>
+
+/*Return the names of all countries with population greater than 100 million. */
+let $countries := $db//country[@population > 100000000]/data(@name)
+return $countries
+
+/*Return the names of all countries where over 50% of the population speaks German.*/
+let $ger_contries := $db//country/language[. = 'German' and  @percentage > 50]/../data(@name)
+return $ger_contries
+
+/*Return the names of all countries where a city in that country contains more than one-third of 
+the country's population. */
+let $contries := $db//country/city[population > (../@population div 3)]/../data(@name)
+return $contries
+
+/*Return the population density of Qatar*/
+let $Qatar_density := $db//country/city[@name = 'Qatar']/(data(@population) div data(@area))
+return $Qatar_density
+
+/*Return the names of all countries whose population is less than one thousandth that of some city (in any country).*/
+let $city_thusandth_pop := $db//city/(population div 1000)
+for $cntry in $db//country
+	where some $city_thus in $city_thusandth_pop satisfies
+		$city_thus > $cntry/@population
+	return $cntry/data(@name)
+
+/*Return all city names that appear more than once*/
+let $dublicated_cities := $db//city[name = following::*/name or Title = preceding::*/name]/name
+return $dublicated_cities
+
+/*Return the names of all countries containing a city such that some other country has a city of the same name.*/
+let $dublicated_cities := $db//city[name = following::*/name or Title = preceding::*/name]/name
+for $cntry in $db//country
+	where some $cty in $cntry/city satisfies
+	contains($cty, $dublicated_cities)
+	return data($cntry/@name)
+
+/*Return the names of all countries whose name textually contains a language spoken in that country.
+ For instance, Uzbek is spoken in Uzbekistan, so return Uzbekistan. */
+let $contries := $db//country/language[contains(../@name, .)]/../data(@name)
+return $contries
+
+/*Return the names of all countries in which people speak a language whose name textually 
+contains the name of the country. */
+let $contries := $db//country/language[contains(.,../@name)]/../data(@name)
+return $contries
+
+/*Return all languages spoken in a country whose name textually contains the language name.*/
+let $languages := $db//country/data(language[contains(../@name, .)])
+return $languages
+
+/*Return all languages whose name textually contains the name of a country in which the language is spoken. */
+let $contries := $db//data(country/language[contains(.,../@name)])
+return $contries
+
+/*Return the number of countries where Russian is spoken. */
+let $lan_rus_countries := count($db//country[language = 'Russian']/data(@name))
+return $lan_rus_countries 
+
+/*Return the names of all countries for which the data does not include any languages or cities,
+ but the country has more than 10 million people.*/
+for $cntry in $db//country[@population > 10000000]
+	return if(not(exists($cntry/language)) and not(exists($cntry/city)) )then $cntry/data(@name)
+	else ()
+
+/*Return the name of the country with the highest population.*/
+let $max_pop := max($db//country/@population)
+for $cntry in $db//country
+where $cntry/@population = $max_pop
+	return $cntry/data(@name)
+
+/*Return the name of the country that has the city with the highest population.*/
+let $max_city := max($db//city/population)
+for $cntry in $db//country
+where some $city in $cntry/city satisfies
+	$city/population = $max_city
+	return $cntry/data(@name)
+
+/*return the average number of languages spoken in countries where Russian is spoken. */
+let $lan_rus_countries := count($db//country[language = 'Russian']/data(@name))
+let $langues := count($db//country[language = 'Russian']/language)
+let $avg_langs := $langues div $lan_rus_countries
+return $avg_langs
+
+/*Return all country-language pairs where the language is spoken in the country and the name of the country
+ textually contains the language name. Return each pair as a country element with language attribute*/
+for $lang in $db//country/language[contains(../@name, .)]
+	return <country language="{data($lang)}">{$lang/../data(@name)}</country>
+
+/*Return all countries that have at least one city with population greater than 7 million. */
+for $cntry in $db//country
+	where some $city in $cntry/city satisfies
+		$city/population > 7000000
+	return <country name="{$cntry/data(@name)}">{
+			for $city in $cntry/city
+				where $city/population > 7000000
+				return <big>{data($city/name)}</big>
+			}</country>
+
+/*Return all countries where at least one language is listed, but the total percentage for all listed languages 
+is less than 90%. Return the country element with its name attribute and its language subelements,
+but no other attributes or subelements. */
+for $cntry in $db//country[language]
+	let $tot_lang_per := sum($cntry/language/data(@percentage))
+	where $tot_lang_per < 90
+		return <country>
+			{$cntry/@name}
+			{$cntry/language}
+			</country>
+
+/*Return all countries where at least one language is listed, 
+and every listed language is spoken by less than 20% of the population. */
+for $cntry in $db//country[language]
+	where every $lang in $cntry/language satisfies $lang/@percentage < 20
+		return <country>
+			{$cntry/@name}
+			{$cntry/language}
+			</country>			
+	
+/*Find all situations where one country's most popular language is another country's least popular, 
+and both countries list more than one language.*/
+for $cntry1 in $db//country
+	let $langs1 := count($cntry1/language)
+	let $max_perc := $cntry1/max(language/@percentage)
+	let $max_lang := $cntry1/data(language[@percentage = $max_perc])
+
+	for $cntry2 in $db//country
+	let $langs2 := count($cntry2/language)
+	let $min_perc := $cntry2/min(language/@percentage)
+	let $min_lang := $cntry2/data(language[@percentage = $min_perc])
+	where $langs1 > 1 and $langs2 > 1 and  $min_lang = $max_lang
+
+
+/*For each language spoken in one or more countries, create a "language" element with a "name" attribute and 
+one "country" subelement for each country in which the language is spoken. The "country" subelements should 
+have two attributes: the country "name", and "speakers" containing the number of
+ speakers of that language (based on language percentage and the country's population). Order the result 
+ by language name, and enclose the entire list in a single "languages" element.*/
+<languages>{
+	let $db := doc("countries.xml")
+	let $languages := distinct-values($db//language)
+	for $lang in $languages
+		
+		return <language name = "{$lang}">
+				{
+					for $cntry in $db//country[language = $lang]
+						let $total_pop := $cntry/data(@population)
+						let $perc := 	   $cntry/language[. = $lang]/data(@percentage)
+						let $speakers :=  xs:int( $total_pop * ($perc div 100) )
+						return <country speakers = "{$speakers}">{$cntry/@name}</country >
+				}
+			  </language >
+}</languages>

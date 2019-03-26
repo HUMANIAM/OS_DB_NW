@@ -1,0 +1,1 @@
+coursesQueries.xq
