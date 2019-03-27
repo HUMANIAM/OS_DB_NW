@@ -1,0 +1,83 @@
+<!-- This queries on xml doc using the xslt language to transoform the xml document to anthor document many
+	be xml or html, xhtml-->
+
+<!-- Return a list of department titles.  -->
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+<xsl:template match="Department">
+   <xsl:copy-of select="Title" />
+</xsl:template>
+</xsl:stylesheet>
+
+<!-- Return a list of department elements with no attributes and two subelements each: the department title and the entire Chair subelement structure.  -->
+
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+<xsl:template match="Department">
+	<Department>
+   		<xsl:copy-of select="Title" />
+   		<xsl:copy-of select="Chair" />
+	</Department>
+</xsl:template>
+</xsl:stylesheet>
+
+<!-- Return all courses with enrollment greater than 500. Retain the structure of Course elements from the original data.  -->
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+<xsl:template match="Course[@Enrollment > 500]">
+	<xsl:copy-of select = "."/>
+</xsl:template>
+
+<!-- ignore text elements -->
+<xsl:template match = "text()"/>
+</xsl:stylesheet>
+
+<!-- Remove from the data all courses with enrollment greater than 60, or with no enrollment listed. Otherwise the structure of the data should be the same.  -->
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+<xsl:template match = "*|@*|text()">
+	<xsl:copy>
+      <xsl:apply-templates select="*|@*|text()" />
+   </xsl:copy>
+</xsl:template>
+<xsl:template match="Course[not(@Enrollment) or @Enrollment > 60]"/>
+</xsl:stylesheet>
+
+<!--  Create a summarized version of the EE part of the course catalog. For each course in EE, return a Course element, with its Number and Title as attributes, its Description as a subelement, and the last name of each instructor as an Instructor subelement. Discard all information about department titles, chairs, enrollment, and prerequisites, as well as all courses in departments other than EE.-->
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+<xsl:template match = "Department[@Code = 'EE']/Course">
+	<Course Number="{@Number}" Title="{Title}" >
+		<xsl:copy-of select = "Description" />
+		<xsl:for-each select = "Instructors/(Professor| Lecturer)" > 
+			<Instructor> <xsl:value-of select = "Last_Name" /> </Instructor>
+		</xsl:for-each>
+	</Course>
+</xsl:template>
+
+<!-- ignore text elements -->
+<xsl:template match = "text()"/>
+</xsl:stylesheet>
+
+<!-- Create an HTML table with one-pixel border that lists all CS department courses with enrollment greater than 200. Each row should contain three cells: the course number in italics, course title in bold, and enrollment. Sort the rows alphabetically by course title. No header is needed. -->
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+
+<xsl:template match = "Department[@Code = 'CS']">
+	<table border="1">
+	<xsl:for-each select="Course">
+        <xsl:sort select="Title" />
+           <xsl:if test="@Enrollment &gt; 200">
+              <tr>
+              <td><i><xsl:value-of select="@Number" /></i></td>
+              <td><b><xsl:value-of select="Title" /></b></td>
+              <td><xsl:value-of select="@Enrollment" /></td>
+              </tr>
+           </xsl:if>
+        </xsl:for-each>
+	</table>
+</xsl:template>
+
+<!-- ignore text elements -->
+<xsl:template match = "text()"/>
+</xsl:stylesheet>
