@@ -7,6 +7,9 @@
 	- Quering relational Databases
 		- Relational algebra
 		- SQL
+	- Quering XML Databases
+		- XPATH, XQUERY
+		- XSLT
 
 ## Topics
 - Introduction to database
