@@ -13,3 +13,6 @@
 - XML structure, XML validatoin Using DTD and XSL
 - Json structure, Json validation
 - Relational algebra : select, project, Join, set operators, renaming, Notation, diff, intersect, divsion, union
+- SQL Queries : select, set operators, join types, closure, subqueries, aggregation, group by, modification, DDL, DML
+- XPATH, XQUERY : Xpath, xquery
+- XSLT
