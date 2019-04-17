@@ -12,4 +12,14 @@ This repo contains 3 distinctive folders. The first one is DataBase (DB design, 
 
 ## DB resources
 - [introduction to relational database](https://lagunita.stanford.edu/courses/DB/RDB/SelfPaced/course/)
+- [XML Data](https://lagunita.stanford.edu/courses/DB/XML/SelfPaced/about)
+- [JSON Data](https://lagunita.stanford.edu/courses/DB/JSON/SelfPaced/about)
+- [Relational Algebra](https://lagunita.stanford.edu/courses/DB/RA/SelfPaced/about)
+- [SQL](https://lagunita.stanford.edu/courses/DB/SQL/SelfPaced/about)
+- [XPath and XQuery](https://lagunita.stanford.edu/courses/DB/XPath/SelfPaced/about)
+- [XSLT](https://lagunita.stanford.edu/courses/DB/XSLT/SelfPaced/about)
+- [Relational Design Theory](https://lagunita.stanford.edu/courses/DB/RD/SelfPaced/about)
+- [UML Design](https://lagunita.stanford.edu/courses/DB/UML/SelfPaced/course/)
+- [Indexes & Transaction](https://lagunita.stanford.edu/courses/DB/Indexes/SelfPaced/about)
+- [Constraints & Triggers](https://lagunita.stanford.edu/courses/DB/Constraints/SelfPaced/about)
 - [w3school_sql_language](https://www.w3schools.com/sql/)
