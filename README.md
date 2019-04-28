@@ -22,4 +22,7 @@ This repo contains 3 distinctive folders. The first one is DataBase (DB design, 
 - [UML Design](https://lagunita.stanford.edu/courses/DB/UML/SelfPaced/course/)
 - [Indexes & Transaction](https://lagunita.stanford.edu/courses/DB/Indexes/SelfPaced/about)
 - [Constraints & Triggers](https://lagunita.stanford.edu/courses/DB/Constraints/SelfPaced/about)
+- [Views & Authorization](https://lagunita.stanford.edu/courses/DB/Views/SelfPaced/course/)
+- [On-Line analytical processing](https://lagunita.stanford.edu/courses/DB/OLAP/SelfPaced)
+- [Sql recursion](https://lagunita.stanford.edu/courses/DB/Recursion/SelfPaced/about)
 - [w3school_sql_language](https://www.w3schools.com/sql/)

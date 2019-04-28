@@ -10,6 +10,15 @@
 	- Quering XML Databases
 		- XPATH, XQUERY
 		- XSLT
+	- Database Design
+		- Relation Design Theory
+		- Unified Modeling language
+	- Sql Advanced Features
+		- Indexes and Transactions
+		- Constraints and Triggers
+		- Views and Authorization
+		- Online Analytical processing
+		- Recursion In Sql
 
 ## Topics
 - Introduction to database
@@ -23,3 +32,6 @@
 - Relational Design theory: Design anomalies, Functional dependencies, multivalued dependencies, Normal Form(BNCF, 4th NF)
 - Indexes & Transcations : using indexes to speed up DB processing, using transcations to handle problem results from system failures and inconsistency resulted from concurrency in DB.
 - Constraints & triggers: constraints, referential integrity, handling referential integrity violation, row_level triggers and statement_level triggers
+- Views&Authorization : virtual views, materialized views, automatic views modification, user creator modification of views, authorization using views, granting and invoking priviledges of DB users
+- Online Analytical Processing : OLAP, OLAT, star schema, dimension tables, fact tables, Cube, Dicing, Slicing, rollup, drillDown, 
+- SQL Recursion : writting recursion queries in sql.
